@@ -8,16 +8,18 @@
         <textarea name="prompt" placeholder="Enter your ingredients" required></textarea><br>
         <button type="submit">Get Recipe</button>
     </form>
-    {% if recipe %}
-        <div class="recipe-container">
-            <h3>Recipe:</h3>
-            <p>{{ recipe }}</p>
-        </div>
-    {% endif %}
-    {% if image_url %}
-        <div class="image-container">
-            <h3>Image:</h3>
-            <img src="{{ image_url }}" alt="Generated Image">
-        </div>
-    {% endif %}
+    <div style="display: flex; flex-wrap: wrap;">
+        {% if recipe %}
+            <div class="recipe-container" style="flex: 1; margin-right: 20px;">
+                <h3>Recipe:</h3>
+                <p>{{ recipe }}</p>
+            </div>
+        {% endif %}
+        {% if image_prompt %}
+            <div class="image-container" style="flex: 1;">
+                <h3>Image Prompt:</h3>
+                <p>{{ image_prompt }}</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
