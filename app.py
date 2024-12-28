@@ -129,10 +129,16 @@ def home():
         # Gemini Image Generation
         image_prompt = f"{IMAGE_PROMPT}\n{recipe_text}"
         image_response = model.generate_content(image_prompt)
-        image_text = image_response.text
+        
+        if image_response.parts and hasattr(image_response.parts[0], 'inline_data') and image_response.parts[0].inline_data.mime_type == 'image/jpeg':
+            image_data = image_response.parts[0].inline_data.data
+            image_url = f"image/jpeg;base64,{image_data}"
+        else:
+            image_url = None
+            print("No image data found in the response.")
 
         session_db.close()
-        return render_template('home.html', recipe=recipe_text, image_prompt=image_text)
+        return render_template('home.html', recipe=recipe_text, image_url=image_url)
     return render_template('home.html')
 
 if __name__ == '__main__':

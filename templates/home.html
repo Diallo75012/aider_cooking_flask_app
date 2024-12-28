@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
     <h2>Welcome!</h2>
-    <a href="{{ url_for('logout') }}">Logout</a>
     <form method="post">
         <textarea name="prompt" placeholder="Enter your ingredients" required></textarea><br>
         <button type="submit">Get Recipe</button>
     </form>
     {% if recipe %}
-        <h3>Recipe:</h3>
-        <p>{{ recipe }}</p>
+        <div class="recipe-container">
+            <h3>Recipe:</h3>
+            <p>{{ recipe }}</p>
+        </div>
     {% endif %}
-    {% if image_prompt %}
-        <h3>Image Prompt:</h3>
-        <p>{{ image_prompt }}</p>
+    {% if image_url %}
+        <div class="image-container">
+            <h3>Image:</h3>
+            <img src="{{ image_url }}" alt="Generated Image">
+        </div>
     {% endif %}
-</body>
-</html>
+{% endblock %}
